@@ -9,9 +9,10 @@ const _dispatchController = require('./application/adapters/controller/dispatch_
 //Middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use('/api', _dispatchController);
+
 DB();
 
-app.use('/api', _dispatchController);
 
 app.listen(PORT, () => {
   console.log('Server started on port 3000');

@@ -4,8 +4,8 @@ const _meditation = require('../persistence/medication_persistence');
 const _drones = require('../persistence/drone_persistence');
 const validator = require('../../validators/validators');
 
-routes.get('/drones', (req, res) => {
-    const drones = _drones.find();
+routes.get('/drones', async (req, res) => {
+    const drones = await _drones.find();
 
     if (!drones) res.send({ message: 'There is no drones to show' });
 
