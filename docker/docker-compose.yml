@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: "no"
+    environment:
+      MONGO_INITDB_DATABASE: Drones
+      MONGO_INITDB_ROOT_USERNAME:
+      MONGO_INITDB_ROOT_PASSWORD:
+    ports:
+      - 27017:27017
