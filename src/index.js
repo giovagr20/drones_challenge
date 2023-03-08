@@ -1,5 +1,5 @@
 const express = require('express');
-const {PORT} = require('./infrastructure/utils/utils');
+const { PORT } = require('./infrastructure/utils/utils');
 const DB = require('./infrastructure/database/database');
 const app = express();
 
@@ -7,7 +7,7 @@ const app = express();
 const _serviceTheDroneController = require('./application/adapters/controller/service_thedrone_controller');
 
 //Middlewares
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 DB();
 
 app.use('/api', _serviceTheDroneController);

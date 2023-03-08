@@ -3,13 +3,16 @@ export const Model = {
     Lightweight,
     Middleweight,
     Cruiserweight,
-    Heavyweight
+    Heavyweight,
+    ErrorModel
 }
 
 export const State = {
     IDLE,
     LOADING,
-    LOADED, DELIVERING,
+    LOADED, 
+    DELIVERING,
     DELIVERED,
-    RETURNING
+    RETURNING,
+    ERROR
 }
