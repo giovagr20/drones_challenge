@@ -1,13 +1,28 @@
-const OK = 'OK';
-const ERROR = 'ERROR';
+const { Model, Status } = require("../../domain/models/drones_model");
 
-module.exports = (model) => {
-    console.log("Here ---- model: ", model);
+const validModel = (model) => {
     switch (model) {
-        case 'Lightweight': return OK;
-        case 'Middleweight': return OK;
-        case 'Cruiserweight': return OK;
-        case 'Heavyweight': return OK;
-        default: return ERROR;
+        case 'Lightweight': return Model.Lightweight;
+        case 'Middleweight': return Model.Middleweight;
+        case 'Cruiserweight': return Model.Cruiserweight;
+        case 'Heavyweight': return Model.Heavyweight;
+        default: return Model.ErrorModel;
     }
-};
+}
+
+const validStatus = (state) => {
+    switch (state) {
+        case 'IDLE': return Status.IDLE;
+        case 'LOADING': return Status.LOADING;
+        case 'LOADED': return Status.LOADED;
+        case 'DELIVERING': return Status.DELIVERING;
+        case 'DELIVERED': return Status.DELIVERED;
+        case 'RETURNING': return Status.RETURNING
+        default: return Status.ERROR;
+    }
+}
+
+module.exports = {
+    validModel,
+    validStatus
+}

@@ -14,10 +14,15 @@ routes.get('/drones', async (req, res) => {
 routes.post('/create-drone', async (req, res) => {    
     const { name, model, weightLimit, battery, state } = req.body;
 
-    const validateModel = validator(model);
+    const validateModel = validator.validModel(model);
+    const validateStatus = validator.validStatus(state);
 
     if (!validateModel) res.send({
-        message: 'There was an error'
+        message: 'There was an error, pleasen sent correct model'
+    })
+
+    if (!validateStatus) res.send({
+        message: 'There was an error, please sent correct status'
     })
 
     const _newSchema = {

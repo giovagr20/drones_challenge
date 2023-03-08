@@ -5,8 +5,7 @@ const getAllDrones = async () => {
    return await _drones.find();
 }
 
-const createDrone = async(newDrone) => {
-    console.log('Enter here --- Services');
+const createDrone = async(newDrone) => {    
     const _newDrone = new _drones(newDrone);
     return await _newDrone.save();
 }
