@@ -1,13 +1,13 @@
-const { Model } = require('../properties/properties_model');
+const OK = 'OK';
+const ERROR = 'ERROR';
 
-const isValidModel = (model) => {
+module.exports = (model) => {
+    console.log("Here ---- model: ", model);
     switch (model) {
-        case 'Lightweight': return Model.Lightweight
-        case 'Middleweight': return Model.Middleweight
-        case 'Cruiserweight': return Model.Cruiserweight
-        case 'Heavyweight': return Model.Heavyweight
-        default: return Model.ErrorModel
+        case 'Lightweight': return OK;
+        case 'Middleweight': return OK;
+        case 'Cruiserweight': return OK;
+        case 'Heavyweight': return OK;
+        default: return ERROR;
     }
-}
-
-module.exports = isValidModel;
+};

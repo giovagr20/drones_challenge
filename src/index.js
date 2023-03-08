@@ -7,7 +7,8 @@ const app = express();
 const _dispatchController = require('./application/adapters/controller/dispatch_controller');
 
 //Middlewares
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 DB();
 
 app.use('/api', _dispatchController);

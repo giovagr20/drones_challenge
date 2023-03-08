@@ -2,7 +2,7 @@ const express = require('express');
 const routes = express.Router();
 const _meditation = require('../persistence/medication_persistence');
 const _drones = require('../persistence/drone_persistence');
-const { isValidModel } = require('../../validators/validators');
+const validator = require('../../validators/validators');
 
 routes.get('/drones', (req, res) => {
     const drones = _drones.find();
@@ -12,10 +12,12 @@ routes.get('/drones', (req, res) => {
     res.send(drones);
 });
 
-routes.post('/create-dron', (req, res) => {
+routes.post('/create-dron', async (req, res) => {
+    console.log(req.body);
+    
     const { name, model, weightLimit, battery, state } = req.body;
 
-    const validateModel = isValidModel(model);
+    const validateModel = validator(model);
 
     if (!validateModel) res.send({
         message: 'There was an error'
@@ -30,7 +32,10 @@ routes.post('/create-dron', (req, res) => {
     }
 
     const _newDrone = new _drones(_newSchema);
-    _newDrone.save();
+    await _newDrone.save();
+
+    res.send(_newDrone);
+
 });
 
 routes.post('/create-medication-drone', (req, res) => {
