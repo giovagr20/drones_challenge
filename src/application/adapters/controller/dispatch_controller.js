@@ -2,8 +2,7 @@ const express = require('express');
 const routes = express.Router();
 const _meditation = require('../persistence/medication_persistence');
 const _drones = require('../persistence/drone_persistence');
-const validator = require('../../validators/validators');
-const { Model, State } = require('../../properties/properties');
+const { isValidModel } = require('../../validators/validators');
 
 routes.get('/drones', (req, res) => {
     const drones = _drones.find();
@@ -13,30 +12,29 @@ routes.get('/drones', (req, res) => {
     res.send(drones);
 });
 
-routes.post('create-dron', (req, res) => {
+routes.post('/create-dron', (req, res) => {
     const { name, model, weightLimit, battery, state } = req.body;
 
-    const validateModel = validator.isValidModel(model);
-    const validateState = validator.isValidState(state);
+    const validateModel = isValidModel(model);
 
-    if (validateModel === Model.ErrorModel) res.send({
-        message: 'Please, sent correct model'
-    });
-
-    if (validateState === State.ERROR) res.send({
-        message: 'Please, sent correct state'
-    });
+    if (!validateModel) res.send({
+        message: 'There was an error'
+    })
 
     const _newSchema = {
         name: name,
         model: validateModel,
         weightLimit: weightLimit,
         battery: battery,
-        state: validateState
+        state: state
     }
 
     const _newDrone = new _drones(_newSchema);
     _newDrone.save();
-})
+});
+
+routes.post('/create-medication-drone', (req, res) => {
+
+});
 
 module.exports = routes;

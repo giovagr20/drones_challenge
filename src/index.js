@@ -4,13 +4,13 @@ const DB = require('./infrastructure/database/database');
 const app = express();
 
 //Instances modules
-const _serviceTheDroneController = require('./application/adapters/controller/service_thedrone_controller');
+const _dispatchController = require('./application/adapters/controller/dispatch_controller');
 
 //Middlewares
 app.use(express.urlencoded({ extended: false }));
 DB();
 
-app.use('/api', _serviceTheDroneController);
+app.use('/api', _dispatchController);
 
 app.listen(PORT, () => {
   console.log('Server started on port 3000');

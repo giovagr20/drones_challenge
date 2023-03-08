@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+
 const _medicationSchema = new Schema({
     name: { type: String, match: /[a-zA-Z0-9_-]$/ },
     weight: { type: Number },
@@ -8,4 +9,4 @@ const _medicationSchema = new Schema({
 });
 
 
-module.exports = model('Medication', _medicationSchema);
+module.exports = model('Medication', _medicationSchema);    

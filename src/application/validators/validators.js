@@ -1,6 +1,6 @@
-import { Model, State } from "../properties/properties"
+const { Model } = require('../properties/properties_model');
 
-export const isValidModel = (model) => {
+const isValidModel = (model) => {
     switch (model) {
         case 'Lightweight': return Model.Lightweight
         case 'Middleweight': return Model.Middleweight
@@ -10,14 +10,4 @@ export const isValidModel = (model) => {
     }
 }
 
-export const isValidState = (state) => {
-    switch (state) {
-        case 'IDLE': return State.IDLE
-        case 'DELIVERING': return State.DELIVERING
-        case 'LOADING': return State.LOADING
-        case 'RETURNING': return State.RETURNING
-        case 'DELIVERED': return State.DELIVERED
-        case 'LOADED': return State.LOADED
-        default: return State.ERROR
-    }
-}
+module.exports = isValidModel;
