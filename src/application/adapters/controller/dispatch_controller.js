@@ -18,24 +18,28 @@ routes.post('/create-drone', async (req, res) => {
     const validateStatus = validator.validStatus(state);
 
     if (!validateModel) res.send({
-        message: 'There was an error, pleasen sent correct model'
+        message: 'There was an error, please sent correct model'
     })
 
     if (!validateStatus) res.send({
         message: 'There was an error, please sent correct status'
     })
 
+    if (battery < 0.25 && validateStatus === 1) {
+        res.send({
+            message: 'Thats not possible with battery under 25% and status LOADING'
+        });
+    }
+
     const _newSchema = {
         name: name,
-        model: model,
+        model: validateModel,
         weightLimit: weightLimit,
         battery: battery,
-        state: state
+        state: validateStatus
     }
 
     const droneNew = await serviceDispatch.createDrone(_newSchema)
-
-    console.log(droneNew);
 
     res.send(droneNew);
 
@@ -50,6 +54,47 @@ routes.post('/load-medication-drone', async (req, res) => {
 
     res.send({medication});
 
+});
+
+routes.get('/check-loaded-drone/:id', async (req, res) => {
+    const id = req.params.id;
+
+    const loaded = await serviceDispatch.checkIfDroneIsLoaded(id);
+
+    if (!loaded) res.send({
+        message: 'This drone is not loaded yet'
+    })
+
+    res.send({
+        message: 'Drone loaded'
+    });
+});
+
+routes.get('/check-availabilities-drone-loading', async (req, res) => {
+    const listDrones = await serviceDispatch.checkAvailabilityDroneForLoading();
+
+    if (listDrones.length === 0) {
+        res.send({
+            message: "There are no availabilities"
+        });
+    }
+
+    res.send(listDrones);
+})
+
+routes.get('/check-battery-level/:id', async (req, res) => {
+    const id = req.params.id;
+    const drone = await serviceDispatch.checkBatteryLevel(id);
+
+    if (!drone) {
+        res.send({
+            message: 'Theres no drone existing with that id'
+        })
+    }
+
+    res.send({
+        message: `Drone ${drone.name} with battery ${drone.battery * 100}%`
+    })
 });
 
 module.exports = routes;
