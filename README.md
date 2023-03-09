@@ -8,3 +8,6 @@
 ### 4. Check whether docker is installed by CLI or Desktop
 ### 5. Go to folder "docker" and execute "docker compose up"
 ### 6. Finally execute "node src/index.js"
+
+
+### 7. To check test, please run command 'npm run test'
