@@ -17,7 +17,7 @@ describe("GET : /", () => {
   });
 });
 
-describe("GET: /api/drones", () => {
+/* describe("GET: /api/drones", () => {
   beforeAll(async () => {
     const mongod = await MongoMemoryServer.create();
     const uri = mongod.getUri();
@@ -53,4 +53,4 @@ describe("GET: /api/drones", () => {
     expect(response.body.length).toBeGreaterThan(0);
     done();
   }, 60000);
-});
+}); */

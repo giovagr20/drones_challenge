@@ -5,7 +5,7 @@ const validator = require('../../validators/validators');
 
 routes.get('/', (req, res) => {
     res.send({message: 'Ok'})
-})
+});
 
 routes.get('/drones', async (req, res) => {
     const drones = await serviceDispatch.getAllDrones()
