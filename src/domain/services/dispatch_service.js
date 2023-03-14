@@ -2,7 +2,9 @@ const _medication = require("../persistence/medication_persistence");
 const _drones = require("../persistence/drone_persistence");
 
 const getAllDrones = async () => {
-  return await _drones.find();
+  const drones = Promise.resolve(_drones.find())
+
+  return await drones;
 };
 
 const createDrone = async (newDrone) => {
@@ -11,13 +13,15 @@ const createDrone = async (newDrone) => {
 };
 
 const createMedication = async (idDrone, name, weight, code) => {
-  const droneById = await _drones.findById(idDrone);
+  const droneById = Promise.resolve(_drones.findById(idDrone));
+
+  const promiseDrone = await droneById;
 
   const medicationLoad = {
     name: name,
     weight: weight,
     code: code,
-    droneBy: droneById,
+    droneBy: promiseDrone,
   };
 
   const loadMedication = new _medication(medicationLoad);
@@ -25,20 +29,23 @@ const createMedication = async (idDrone, name, weight, code) => {
 };
 
 const checkIfDroneIsLoaded = async (id) => {
-  const _drone = await _drones.findById(id);
+  const _drone = Promise.resolve(_drones.findById(id));
 
-  return _drone.state === 2;
+  return await _drone.state === 2;
 };
 
 const checkAvailabilityDroneForLoading = async () => {
-  return (await _drones.find()).map((drone) => {
+  const _dronesData = Promise.resolve(_drones.find());
+  return (await _dronesData).map((drone) => {
     if (drone.state === 1) return drone }).filter(elem => {
         if (elem !== null) return elem
     });
 };
 
 const checkBatteryLevel = async (id) => {
-    return await _drones.findById(id);
+    const battery = Promise.resolve(_drones.findById(id));
+
+    return await battery;
 }
 
 module.exports = {
